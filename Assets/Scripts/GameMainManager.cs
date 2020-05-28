@@ -23,7 +23,7 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
     void Start()
     {
         Simulator.Instance.setTimeStep(0.25f);
-        Simulator.Instance.setAgentDefaults(15.0f, 10, 5.0f, 5.0f, 2.0f, 2.0f, Vector3.zero);
+        Simulator.Instance.setAgentDefaults(15.0f, 30, 5.0f, 5.0f, 6.0f, 2.0f, Vector3.zero);
         // add in awake
         Simulator.Instance.processObstacles();
     }
@@ -73,14 +73,16 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
             Assert.IsNotNull(ga);
             ga.sid = sid;
             magentMap.Add(sid, ga);
+            //Simulator.Instance.setAgentNeighborDist(sid, 5.0f);
         }
+
     }
 
     // Update is called once per frame
     private void Update()
     {
         UpdateMousePosition();
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetKey(KeyCode.Delete))
             {
@@ -93,5 +95,20 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
         }
 
         Simulator.Instance.doStep();
+    }
+
+    public void CreateNewTargets()
+    {
+        foreach (Agent agt in Simulator.Instance.agents)
+        {
+            Vector3 dst = UnityEngine.Random.insideUnitSphere;
+
+            dst.y = 0.0f;
+            dst.x *= 50.0f;
+            dst.z *= 50.0f;
+            magentMap[agt.id].goal = dst;
+
+
+        }
     }
 }

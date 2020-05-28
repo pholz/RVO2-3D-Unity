@@ -10,6 +10,8 @@ public class GameAgent : MonoBehaviour
 {
     [HideInInspector] public int sid = -1;
 
+    public Vector3 goal = new Vector3();
+
     /** Random number generator. */
     private Random mrandom = new Random();
     // Use this for initialization
@@ -28,6 +30,29 @@ public class GameAgent : MonoBehaviour
             if (Math.Abs(vel.x) > 0.01f && Math.Abs(vel.y) > 0.01f)
                 transform.forward = new Vector3(vel.x, 0, vel.y).normalized;
         }
+
+        GetComponentInChildren<TextMesh>().text = "n: " + Simulator.Instance.getAgentNumAgentNeighbors(sid);
+        GetComponentInChildren<LineRenderer>().SetPositions(new Vector3[] { transform.position, goal });
+
+        Vector3 goalTf = new Vector3(goal.x, goal.z, goal.y);
+        Vector3 goalVec = goalTf - Simulator.Instance.getAgentPosition(sid);
+        if (RVOMath.absSq(goalVec) > 1.0f)
+        {
+            goalVec = RVOMath.normalize(goalVec);
+        }
+
+        Simulator.Instance.setAgentPrefVelocity(sid, goalVec);
+
+        float angle_ = (float)mrandom.NextDouble() * 2.0f * (float)Math.PI;
+        float dist_ = (float)mrandom.NextDouble() * 0.0001f;
+
+        Simulator.Instance.setAgentPrefVelocity(sid, Simulator.Instance.getAgentPrefVelocity(sid) +
+                                                     dist_ *
+                                                     new Vector3((float)Math.Cos(angle_), (float)Math.Sin(angle_)));
+
+
+
+        return;
 
         if (!Input.GetMouseButton(1))
         {
