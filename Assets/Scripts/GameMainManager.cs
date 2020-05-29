@@ -19,11 +19,15 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
     private Plane mhPlane = new Plane(Vector3.up, Vector3.zero);
     private Dictionary<int, GameAgent> magentMap = new Dictionary<int, GameAgent>();
 
+    [Range(0.0f, 10.0f)]
+    public float AgentMaxSpeed = 2.0f;
+    float m_agentMaxSpeed = 2.0f;
+
     // Use this for initialization
     void Start()
     {
         Simulator.Instance.setTimeStep(0.25f);
-        Simulator.Instance.setAgentDefaults(35.0f, 10, 35.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
+        Simulator.Instance.setAgentDefaults(30.0f, 10, 35.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
         // add in awake
         Simulator.Instance.processObstacles();
     }
@@ -73,6 +77,7 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
             Assert.IsNotNull(ga);
             ga.sid = sid;
             magentMap.Add(sid, ga);
+            Simulator.Instance.setAgentMaxSpeed(sid, m_agentMaxSpeed);
             //Simulator.Instance.setAgentNeighborDist(sid, 5.0f);
         }
 
@@ -96,6 +101,16 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
 
         Simulator.Instance.doStep();
 
+        if (m_agentMaxSpeed != AgentMaxSpeed)
+        {
+            m_agentMaxSpeed = AgentMaxSpeed;
+
+            foreach (Agent agt in Simulator.Instance.agents)
+            {
+                Simulator.Instance.setAgentMaxSpeed(agt.id, m_agentMaxSpeed);
+            }
+        }
+
         //foreach (Agent agt in Simulator.Instance.agents)
         //{
 
@@ -109,11 +124,19 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
         int ct = Simulator.Instance.agents.Count;
         int i = 0;
         int rd = (int)(UnityEngine.Random.Range(0.0f, 100.0f));
+        List<int> randoms = new List<int>();
         foreach (Agent agt in Simulator.Instance.agents)
         {
             // Vector3 dst = UnityEngine.Random.insideUnitSphere;
+            int r;
+            do
+            {
+                r = (int)(UnityEngine.Random.Range(0.0f, (float)(ct)));
+            } while (randoms.Contains(r));
 
-            double rad = Math.PI * 2.0 * ((i + rd) % ct) / ct;
+            randoms.Add(r);
+
+            double rad = Math.PI * 2.0 * r / ct;
             Vector3 dst = new Vector3((float)Math.Cos(rad), 0.0f, (float)Math.Sin(rad));
 
             dst.y = 0.0f;
