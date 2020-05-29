@@ -504,9 +504,9 @@ namespace RVO
          * permissible velocities with respect to that ORCA constraint.
          * </remarks>
          */
-        public IList<Line> getAgentOrcaLines(int agentNo)
+        public IList<Plane> getAgentOrcaPlanes(int agentNo)
         {
-            return agents[agentNo2indexDict[agentNo]].orcaLines;
+            return agents[agentNo2indexDict[agentNo]].orcaPlanes;
         }
 
         /**

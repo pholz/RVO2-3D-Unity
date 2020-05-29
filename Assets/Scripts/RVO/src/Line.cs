@@ -42,4 +42,11 @@ namespace RVO
         public Vector3 direction;
         public Vector3 point;
     }
+
+    public struct Plane
+    {
+    
+        public Vector3 point;
+        public Vector3 normal;
+    };
 }

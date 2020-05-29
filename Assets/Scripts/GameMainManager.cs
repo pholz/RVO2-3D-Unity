@@ -16,7 +16,7 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
 
     [HideInInspector] public Vector3 mousePosition;
 
-    private Plane mhPlane = new Plane(Vector3.up, Vector3.zero);
+    private UnityEngine.Plane mhPlane = new UnityEngine.Plane(Vector3.up, Vector3.zero);
     private Dictionary<int, GameAgent> magentMap = new Dictionary<int, GameAgent>();
 
     [Range(0.0f, 10.0f)]
@@ -27,9 +27,9 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
     void Start()
     {
         Simulator.Instance.setTimeStep(0.25f);
-        Simulator.Instance.setAgentDefaults(30.0f, 10, 35.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
+        Simulator.Instance.setAgentDefaults(30.0f, 10, 45.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
         // add in awake
-        Simulator.Instance.processObstacles();
+       // Simulator.Instance.processObstacles();
     }
 
     private void UpdateMousePosition()

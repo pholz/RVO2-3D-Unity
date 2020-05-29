@@ -552,6 +552,7 @@ MonoBehaviour:
   agentPrefab: {fileID: 1855940716706202, guid: b69e3c1330d66d445b5bf44dcac8a094,
     type: 3}
   mousePosition: {x: 0, y: 0, z: 0}
+  AgentMaxSpeed: 2
 --- !u!1 &766882466
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,13 +729,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154678687}
-  m_LocalRotation: {x: 0.64021367, y: 0.0071522426, z: -0.005961426, w: 0.7681405}
-  m_LocalPosition: {x: -1.0232337, y: 128.12343, z: -24.635712}
+  m_LocalRotation: {x: 0.005027234, y: 0.9572161, z: -0.2891209, w: -0.011009067}
+  m_LocalPosition: {x: 8, y: 126.6, z: 138.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 146.4, y: 1.65, z: -178.9}
 --- !u!1 &1336400608
 GameObject:
   m_ObjectHideFlags: 0

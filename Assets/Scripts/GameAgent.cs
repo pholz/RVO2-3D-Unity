@@ -28,15 +28,15 @@ public class GameAgent : MonoBehaviour
         {
             Vector3 pos = Simulator.Instance.getAgentPosition(sid);
             Vector3 vel = Simulator.Instance.getAgentPrefVelocity(sid);
-            transform.position = new Vector3(pos.x, transform.position.y, pos.y);
-            if (Math.Abs(vel.x) > 0.01f && Math.Abs(vel.y) > 0.01f)
-                transform.forward = new Vector3(vel.x, 0, vel.y).normalized;
+            transform.position = new Vector3(pos.x, pos.y, pos.z);
+            if (Math.Abs(vel.x) > 0.01f && Math.Abs(vel.y) > 0.01f && Math.Abs(vel.z) > 0.01f)
+                transform.forward = new Vector3(vel.x, vel.y, vel.z).normalized;
         }
 
         GetComponentInChildren<TextMesh>().text = "n: " + Simulator.Instance.getAgentNumAgentNeighbors(sid);
         GetComponentInChildren<LineRenderer>().SetPositions(new Vector3[] { transform.position, goal });
 
-        Vector3 goalTf = new Vector3(goal.x, goal.z, goal.y);
+        Vector3 goalTf = new Vector3(goal.x, goal.y, goal.z);
         Vector3 goalVec = goalTf - Simulator.Instance.getAgentPosition(sid);
         if (RVOMath.absSq(goalVec) > 1.0f)
         {
@@ -45,12 +45,12 @@ public class GameAgent : MonoBehaviour
 
         Simulator.Instance.setAgentPrefVelocity(sid, goalVec);
 
-        float angle_ = (float)mrandom.NextDouble() * 2.0f * (float)Math.PI;
-        float dist_ = (float)mrandom.NextDouble() * 0.0001f;
+        //float angle_ = (float)mrandom.NextDouble() * 2.0f * (float)Math.PI;
+        //float dist_ = (float)mrandom.NextDouble() * 0.0001f;
 
-        Simulator.Instance.setAgentPrefVelocity(sid, Simulator.Instance.getAgentPrefVelocity(sid) +
-                                                     dist_ *
-                                                     new Vector3((float)Math.Cos(angle_), (float)Math.Sin(angle_)));
+        //Simulator.Instance.setAgentPrefVelocity(sid, Simulator.Instance.getAgentPrefVelocity(sid) +
+                                                     //dist_ *
+                                                     //new Vector3((float)Math.Cos(angle_), (float)Math.Sin(angle_)));
 
 
 
