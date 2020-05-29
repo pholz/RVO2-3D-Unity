@@ -23,7 +23,7 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
     void Start()
     {
         Simulator.Instance.setTimeStep(0.25f);
-        Simulator.Instance.setAgentDefaults(15.0f, 10, 15.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
+        Simulator.Instance.setAgentDefaults(35.0f, 10, 35.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
         // add in awake
         Simulator.Instance.processObstacles();
     }
@@ -96,26 +96,32 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
 
         Simulator.Instance.doStep();
 
-        foreach (Agent agt in Simulator.Instance.agents)
-        {
+        //foreach (Agent agt in Simulator.Instance.agents)
+        //{
 
-            magentMap[agt.id].goal = GameObject.Find("Gooal").transform.position;
-        }
+        //    magentMap[agt.id].goal = GameObject.Find("Gooal").transform.position;
+        //}
 
     }
 
     public void CreateNewTargets()
     {
+        int ct = Simulator.Instance.agents.Count;
+        int i = 0;
+        int rd = (int)(UnityEngine.Random.Range(0.0f, 100.0f));
         foreach (Agent agt in Simulator.Instance.agents)
         {
-            Vector3 dst = UnityEngine.Random.insideUnitSphere;
+            // Vector3 dst = UnityEngine.Random.insideUnitSphere;
+
+            double rad = Math.PI * 2.0 * ((i + rd) % ct) / ct;
+            Vector3 dst = new Vector3((float)Math.Cos(rad), 0.0f, (float)Math.Sin(rad));
 
             dst.y = 0.0f;
             dst.x *= 50.0f;
             dst.z *= 50.0f;
             magentMap[agt.id].goal = dst;
 
-
+            i++;
         }
     }
 }

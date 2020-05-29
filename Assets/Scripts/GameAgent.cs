@@ -12,6 +12,8 @@ public class GameAgent : MonoBehaviour
 
     public Vector3 goal = new Vector3();
 
+    public GameObject orcaObj;
+
     /** Random number generator. */
     private Random mrandom = new Random();
     // Use this for initialization
@@ -49,6 +51,31 @@ public class GameAgent : MonoBehaviour
         Simulator.Instance.setAgentPrefVelocity(sid, Simulator.Instance.getAgentPrefVelocity(sid) +
                                                      dist_ *
                                                      new Vector3((float)Math.Cos(angle_), (float)Math.Sin(angle_)));
+
+
+
+
+        //foreach (var c in orcaObj.GetComponentsInChildren<LineRenderer>())
+        //{
+        //    Destroy(c.gameObject);
+        //}
+
+        //var oLines = Simulator.Instance.getAgentOrcaLines(sid);
+
+        //foreach (Line line in oLines)
+        //{
+        //    GameObject go = new GameObject();
+        //    LineRenderer r = go.AddComponent<LineRenderer>();
+        //    go.transform.parent = orcaObj.transform;
+        //    var p1 = orcaObj.transform.position + line.point - line.direction * 20.0f;
+        //    var p2 = orcaObj.transform.position + line.point + line.direction * 20.0f;
+        //    p1.z = p1.y;
+        //    p1.y = 0.0f;
+        //    p2.z = p2.y;
+        //    p2.y = 0.0f;
+        //    r.SetPositions(new Vector3[] { p1, p2 });
+        //}
+
 
 
 
