@@ -416,7 +416,7 @@ namespace RVO
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, false, ref newVelocity);
+            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, true, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {
@@ -497,7 +497,8 @@ namespace RVO
          */
         internal void update()
         {
-            velocity = newVelocity;
+            Vector3 accel = (newVelocity - velocity) * Simulator.Instance.timeStep;
+            velocity += accel;
             position += velocity * Simulator.Instance.timeStep;
         }
 

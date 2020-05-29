@@ -23,7 +23,7 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
     void Start()
     {
         Simulator.Instance.setTimeStep(0.25f);
-        Simulator.Instance.setAgentDefaults(15.0f, 30, 5.0f, 5.0f, 6.0f, 2.0f, Vector3.zero);
+        Simulator.Instance.setAgentDefaults(15.0f, 10, 15.0f, 15.0f, 6.0f, 2.0f, Vector3.zero);
         // add in awake
         Simulator.Instance.processObstacles();
     }
@@ -95,6 +95,13 @@ public class GameMainManager : SingletonBehaviour<GameMainManager>
         }
 
         Simulator.Instance.doStep();
+
+        foreach (Agent agt in Simulator.Instance.agents)
+        {
+
+            magentMap[agt.id].goal = GameObject.Find("Gooal").transform.position;
+        }
+
     }
 
     public void CreateNewTargets()
