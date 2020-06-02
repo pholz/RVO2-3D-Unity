@@ -29,7 +29,7 @@ public class GameAgent : MonoBehaviour
             Vector3 pos = Simulator.Instance.getAgentPosition(sid);
             Vector3 vel = Simulator.Instance.getAgentPrefVelocity(sid);
             transform.position = new Vector3(pos.x, pos.y, pos.z);
-            if (Math.Abs(vel.x) > 0.01f && Math.Abs(vel.y) > 0.01f && Math.Abs(vel.z) > 0.01f)
+            if (Math.Abs(vel.x) > 0.001f && Math.Abs(vel.z) > 0.001f)
                 transform.forward = new Vector3(vel.x, vel.y, vel.z).normalized;
         }
 

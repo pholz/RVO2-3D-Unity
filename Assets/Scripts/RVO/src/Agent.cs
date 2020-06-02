@@ -408,7 +408,9 @@ namespace RVO
                     Line line;
                     line.direction = RVOMath.normalize(crossProduct);
                     Vector3 lineNormal = Vector3.Cross(line.direction, planes[planeNo].normal);
-                    line.point = planes[planeNo].point + (Vector3.Dot((planes[i].point - planes[planeNo].point), planes[i].normal) / Vector3.Dot(lineNormal, planes[i].normal)) * lineNormal;
+                    line.point = planes[planeNo].point + 
+                        (Vector3.Dot((planes[i].point - planes[planeNo].point), planes[i].normal) / Vector3.Dot(lineNormal, planes[i].normal)) 
+                        * lineNormal;
 
                     if (!linearProgram1(planes, i, line, radius, optVelocity, directionOpt, ref result)) 
                     {
@@ -458,7 +460,7 @@ namespace RVO
 
             for (int i = 0; i < planes.Count; ++i)
             {
-                if (RVOMath.det(planes[i].normal, planes[i].point - result) > 0.0f)
+                if (Vector3.Dot(planes[i].normal, planes[i].point - result) > 0.0f)
                 {
                     /* Result does not satisfy constraint i. Compute new optimal result. */
                     Vector3 tempResult = result;
@@ -492,7 +494,7 @@ namespace RVO
 
             for (int i = beginPlane; i < planes.Count; ++i)
             {
-                if (RVOMath.det(planes[i].normal, planes[i].point - result) > distance)
+                if (Vector3.Dot(planes[i].normal, planes[i].point - result) > distance)
                 {
                     /* Result does not satisfy constraint of line i. */
                     IList<Plane> projPlanes = new List<Plane>();
@@ -521,7 +523,8 @@ namespace RVO
                         {
                             Vector3 lineNormal = Vector3.Cross(crossProduct, planes[i].normal);
                             plane.point = planes[i].point + 
-                                (Vector3.Dot((planes[j].point - planes[i].point), planes[j].normal) / Vector3.Dot(lineNormal, planes[j].normal)) * lineNormal;
+                                (Vector3.Dot((planes[j].point - planes[i].point), planes[j].normal) / Vector3.Dot(lineNormal, planes[j].normal))
+                                * lineNormal;
                         }
 
                         plane.normal = RVOMath.normalize(planes[j].normal - planes[i].normal);
