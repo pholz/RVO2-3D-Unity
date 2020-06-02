@@ -416,7 +416,7 @@ namespace RVO
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, true, ref newVelocity);
+            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, false, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {

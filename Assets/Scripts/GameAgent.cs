@@ -43,7 +43,7 @@ public class GameAgent : MonoBehaviour
             goalVec = RVOMath.normalize(goalVec);
         }
 
-        Simulator.Instance.setAgentPrefVelocity(sid, goalVec);
+        Simulator.Instance.setAgentPrefVelocity(sid, goalVec * GameMainManager.Instance.AgentMaxSpeed);
 
         float angle_ = (float)mrandom.NextDouble() * 2.0f * (float)Math.PI;
         float dist_ = (float)mrandom.NextDouble() * 0.0001f;
