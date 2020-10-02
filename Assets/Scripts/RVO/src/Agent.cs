@@ -89,7 +89,7 @@ namespace RVO
 
             float invTimeHorizon = 1.0f / timeHorizon;
 
-            Debug.Log("agt " + id + " num neighbours: " + agentNeighbors.Count);
+           // Debug.Log("agt " + id + " num neighbours: " + agentNeighbors.Count);
 
             /* Create agent ORCA lines. */
             for (int i = 0; i < agentNeighbors.Count; ++i)
