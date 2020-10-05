@@ -56,7 +56,12 @@ namespace RVO
         internal float timeHorizonObst = 0.0f;
         internal bool needDelete = false;
 
+        internal Vector3 overridePosition;
+        internal bool doOverridePosition = false;
+
         private Vector3 newVelocity;
+        internal Vector3 outputVelocity;
+        internal Vector3 projPosition;
 
         /**
          * <summary>Computes the neighbors of this agent.</summary>
@@ -163,6 +168,8 @@ namespace RVO
             {
                 linearProgram4(orcaPlanes, planeFail, maxSpeed, ref newVelocity);
             }
+
+            outputVelocity = newVelocity;
         }
 
         /**
@@ -238,9 +245,25 @@ namespace RVO
          */
         internal void update()
         {
+            Debug.Log("agent " + id + " update ");
+
             Vector3 accel = (newVelocity - velocity) * Simulator.Instance.timeStep;
-            velocity += accel;
-            position += velocity * Simulator.Instance.timeStep;
+            var hVelocity = velocity + accel;
+            projPosition = position + hVelocity * Simulator.Instance.timeStep;
+
+            // if (doOverridePosition)
+            {
+                var realVelocity = (overridePosition - position) / Simulator.Instance.timeStep;
+               // var realAccel = (realVelocity - velocity) / Simulator.Instance.timeStep;
+
+                position = overridePosition;
+                velocity = realVelocity;
+
+              //  doOverridePosition = false;
+            }
+
+
+            
         }
 
         /**

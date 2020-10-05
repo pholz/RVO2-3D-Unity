@@ -78,6 +78,7 @@ namespace RVO
              */
             internal void step(object obj)
             {
+             //   Debug.Log("sim step");
                 for (int index = start; index < end; ++index)
                 {
                     Simulator.Instance.agents[index].computeNeighbors();
@@ -521,6 +522,7 @@ namespace RVO
          */
         public Vector3 getAgentPosition(int agentNo)
         {
+          //  Debug.Log("agent " + agentNo + " get pos " + agents[agentNo2indexDict[agentNo]].position);
             return agents[agentNo2indexDict[agentNo]].position;
         }
 
@@ -537,6 +539,16 @@ namespace RVO
         public Vector3 getAgentPrefVelocity(int agentNo)
         {
             return agents[agentNo2indexDict[agentNo]].prefVelocity;
+        }
+
+        public Vector3 getAgentOutputVelocity(int agentNo)
+        {
+            return agents[agentNo2indexDict[agentNo]].outputVelocity;
+        }
+
+        public Vector3 getProjPosition(int agentNo)
+        {
+            return agents[agentNo2indexDict[agentNo]].projPosition;
         }
 
         /**
@@ -831,6 +843,13 @@ namespace RVO
         public void setAgentPosition(int agentNo, Vector3 position)
         {
             agents[agentNo2indexDict[agentNo]].position = position;
+         //   Debug.Log("agent " + agentNo + " set pos " + position);
+        }
+
+        public void setAgentOverridePosition(int agentNo, Vector3 op)
+        {
+            agents[agentNo2indexDict[agentNo]].overridePosition = op;
+            agents[agentNo2indexDict[agentNo]].doOverridePosition = true;
         }
 
         /**
@@ -845,6 +864,7 @@ namespace RVO
         public void setAgentPrefVelocity(int agentNo, Vector3 prefVelocity)
         {
             agents[agentNo2indexDict[agentNo]].prefVelocity = prefVelocity;
+         //   Debug.Log("agent " + agentNo + " set prefvel " + prefVelocity);
         }
 
         /**
